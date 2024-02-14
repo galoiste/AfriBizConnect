@@ -20,47 +20,51 @@ class RegisterType extends AbstractType
         $builder
             ->add('firstname', TextType::class, [
                 'label' => 'Votre prénom',
-                'constraints' => new Length(2, 30),
-                'attr' => [
-                    'placeholder' => 'merci de saisir votre prénom'
-                ]
+                'constraints' => new Length([
+                    'min'=>2,
+                    'max'=>30
+                ]),
+                'attr' => ['placeholder' => 'merci de saisir votre prénom']
             ] )
 
             ->add('lastname', TextType::class, [
                 'label' => 'Votre nom',
-                'constraints' => new Length(2, 30),
-                'attr' => [
-                    'placeholder' => 'merci de saisir votre mon'
-                ]
+                'constraints' => new Length([
+                    'min'=>2,
+                    'max'=>30
+                ]),
+                'attr' => ['placeholder' => 'merci de saisir votre mon']
             ])
 
             ->add('email', EmailType::class, [
                 'label' => 'Votre email',
-                'constraints' => new Length(5, 30),
-                'attr' => [
-                    'placeholder' => 'merci de saisir votre adresse email'
-                ]
+                'constraints' => new Length([
+                    'min'=>2,
+                    'max'=>30
+                ]),
+                'attr' => ['placeholder' => 'merci de saisir votre adresse email']
             ] )
 
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'Le mot de passe et la confirmation doivent être identique',
                 'required' => true,
-                'first_options' => ['label' => 'Votre mot de passe'],
-                'second_options' => ['label' => 'Confirmez votre mot de passe'],
-            ] )
-            
-            ->add('submit', SubmitType::class, [
-                'label' => "S'inscrire"
+                'first_options' => [
+                    'label' => 'Votre mot de passe',
+                    'attr' => ['placeholder' => 'Merci de saisir votre mot de passe']
+                ],
+                'second_options' => [
+                    'label' => 'Confirmez votre mot de passe',
+                    'attr' =>  ['placeholder' => 'Merci de confirmer votre mot de passe']
+                ],
             ])
-        ;
+            
+            ->add('submit', SubmitType::class, ['label' => "S'inscrire"]);
     }
 
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([
-            'data_class' => User::class,
-        ]);
+        $resolver->setDefaults([ 'data_class' => User::class,]);
     }
 }
