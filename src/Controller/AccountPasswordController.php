@@ -16,7 +16,7 @@ class AccountPasswordController extends AbstractController
     private $entityManager;
 
     function __construct(EntityManagerInterface $entityManagerInterface){
-        $entityManager = $entityManagerInterface;
+        $this->entityManager = $entityManagerInterface;
     }
 
     /**
@@ -26,7 +26,7 @@ class AccountPasswordController extends AbstractController
     {
         $notification = null;
 
-        $user= $this->getUser();
+        $user = $this->getUser();
         $form = $this->createForm(ChangePasswordType::class, $user);
 
         $form->handleRequest($request);
@@ -39,10 +39,11 @@ class AccountPasswordController extends AbstractController
                 $password = $encoder->hashPassword($user, $new_pwd);
 
                 $user->setPassword($password);
+
                 $this->entityManager->flush();
-                $notification = "Votre mot de passe à bien été mis à jour ";
+                $notification = "Votre mot de passe à bien été mis à jour.";
             }else{
-                $notification = "Votre notification actuel n'est pas le bon.";
+                $notification = "Votre mot de passe actuel n'est pas le bon.";
             }
         }
         
